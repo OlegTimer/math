@@ -1,0 +1,99 @@
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.FlowLayout;
+import java.awt.*; 
+//Euclidean algorithm for greatest common divisor
+
+public class Solution extends JFrame implements ActionListener{
+
+    public static String s = "Find the greatest common divisor";
+ public    JTextField smallField;
+public    JTextField smallField2;
+Label label;
+Label label2;
+JPanel contents;
+Button button1; 
+
+    public Solution()
+    {
+        super("Euclidean algorithm Java by OlegTim");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+      label = new Label();
+        smallField = new JTextField(8);
+  smallField2 = new JTextField(8);
+    label2 = new Label();
+
+    button1= new Button("GO");
+button1.addActionListener(this); 
+button1.setPreferredSize(new Dimension(50, 40));
+
+        contents = new JPanel(new FlowLayout(FlowLayout.LEFT));
+label2.setText("Euclidean algorithm for greatest common divisor");
+contents.add(label2);
+
+contents.add(smallField);
+  contents.add(smallField2);
+contents.add(button1);
+label.setText(s);
+contents.add(label);
+        setContentPane(contents);
+      
+        setSize(300, 230);
+setResizable(false);
+        setVisible(true);
+    }
+
+
+    public static void main(String[] args) {
+        new Solution();
+    }
+
+
+public void actionPerformed(ActionEvent ae) 
+{
+if(ae.getActionCommand().equals("GO"))
+{
+
+s=smallField.getText();
+String s2=smallField2.getText();
+
+try {
+int inttr = Integer.parseInt(s);
+
+try {
+int inttr2 = Integer.parseInt(s2);
+//if digits calculation start, int is limited
+if (s.length()>8||s2.length()>8){s="too long";}else{
+if (inttr==0||inttr2==0){s="zero!";}else{
+int a=Math.abs(inttr);
+int b=Math.abs(inttr2);
+int c=a;
+if (a==b){}else{
+if (b>a){a=b;b=c;}
+
+while(c>0){
+c=a%b;
+a=b; b=c;
+}
+
+}
+s=String.valueOf(a);
+}}//if digits calculation end
+}
+catch (NumberFormatException e) {
+    s="not digits2";
+}
+
+}
+catch (NumberFormatException e) {
+    s="not digits";
+}
+
+label.setText(s);
+contents.add(label);
+contents.setVisible(true);
+
+}
+}
+
+}
