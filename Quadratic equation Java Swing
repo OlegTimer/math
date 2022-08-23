@@ -1,0 +1,131 @@
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.FlowLayout;
+import java.awt.*; 
+import static java.lang.Math.sqrt; 
+import static java.lang.Math.pow; 
+//Quadratic equation Java Swing by OlegTim
+
+public class Sol extends JFrame implements ActionListener{
+
+public static String s = "x1=? x2=?                                                                . ";
+public    JTextField smallField;
+public    JTextField smallField2;
+public    JTextField smallField3;
+Label label;
+Label label2;
+JPanel contents;
+Button button1; 
+
+public double a, b, c, x1,x2;
+
+    public Sol()
+    {
+        super("Quadratic equation Java by OlegTim");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+      label = new Label();
+        smallField = new JTextField(8);
+  smallField2 = new JTextField(8);
+  smallField3 = new JTextField(8);
+    label2 = new Label();
+
+    button1= new Button("GO");
+button1.addActionListener(this); 
+button1.setPreferredSize(new Dimension(50, 40));
+
+        contents = new JPanel(new FlowLayout(FlowLayout.LEFT));
+label2.setText("Quadratic equation  ax^2 +bx +c = 0                      (*.* for fractional numbers)");
+contents.add(label2);
+
+  contents.add(smallField);
+Label label3=new Label();
+contents.add(label3);
+label3.setText("x^2 +");
+
+  contents.add(smallField2);
+Label label4=new Label();
+contents.add(label4);
+label4.setText("x +");
+
+  contents.add(smallField3);
+Label label5=new Label();
+contents.add(label5);
+label5.setText("=0");
+
+contents.add(button1);
+label.setText(s);
+contents.add(label);
+        setContentPane(contents);
+      
+        setSize(470, 230);
+setResizable(false);
+        setVisible(true);
+    }
+
+
+    public static void main(String[] args) {
+        new Sol();
+    }
+
+
+public void actionPerformed(ActionEvent ae) 
+{
+if(ae.getActionCommand().equals("GO"))
+{
+check();
+}
+}
+
+public void check(){// check start
+s=smallField.getText();
+String s2=smallField2.getText();
+String s3=smallField3.getText();
+
+try{
+a=Double.parseDouble(s);
+try{
+b=Double.parseDouble(s2);
+try{
+c=Double.parseDouble(s3);
+cal();
+}
+catch (NumberFormatException e) {
+fail();
+}
+}
+catch (NumberFormatException e) {
+fail();
+}
+}
+catch (NumberFormatException e) {
+fail();
+}
+
+}// check end
+
+public void fail(){
+s="not num";
+label.setText(s);
+contents.add(label);
+contents.setVisible(true);
+}
+
+public void cal(){
+double dif = pow(b,2)-4*a*c;
+x1=(-b+sqrt(dif))/(2*a);
+x2=(-b-sqrt(dif))/(2*a);
+
+s="x1= "+String.valueOf(x1)+"   x2= "+String.valueOf(x2);  
+
+if (dif==0.0)
+s="x1= "+String.valueOf(x1);
+
+if (dif<0.0)
+s="no real roots";
+
+label.setText(s);
+contents.add(label);
+contents.setVisible(true);
+}
+
+}
